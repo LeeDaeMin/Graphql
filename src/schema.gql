@@ -2,9 +2,38 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Todo {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
 type Query {
   """Peticion del Paciente"""
   pacientes: String!
   RandomNumero: Float!
   randomFromZeroTo(to: Int): Int!
+  findAll: [Todo!]!
+  Find(id: Int!): Todo!
+}
+
+type Mutation {
+  CreateToDO(createTodoInput: CreateTodoInput!): Todo!
+  UpdateTODO(updateTodoInput: UpdateTodoInput!): Todo!
+
+  """Eliminar un TODO"""
+  Eliminar(id: Int!): Boolean!
+}
+
+input CreateTodoInput {
+  """Descripcion del paciente"""
+  description: String!
+}
+
+input UpdateTodoInput {
+  id: Int!
+
+  """Descripcion del paciente"""
+  description: String
+  done: Boolean
 }
