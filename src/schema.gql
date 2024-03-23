@@ -1,0 +1,10 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Query {
+  """Peticion del Paciente"""
+  pacientes: String!
+  RandomNumero: Float!
+  randomFromZeroTo(to: Int): Int!
+}
