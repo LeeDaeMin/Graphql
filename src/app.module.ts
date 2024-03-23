@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SaludarModule } from './saludar/saludar.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
         ApolloServerPluginLandingPageLocalDefault()
       ],
     }),
-    SaludarModule
+    SaludarModule,
+    TodoModule
   ],
   controllers: [],
   providers: [],
