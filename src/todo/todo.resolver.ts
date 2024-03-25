@@ -3,6 +3,7 @@ import { Todo } from './entity/todo.entity';
 import { TodoService } from './todo.service';
 import { CreateTodoInput, UpdateTodoInput } from './dto/inputs/index';
 import { StatusArgs } from './dto/args/status.args';
+import { AggregationsType } from './types/aggregations.type';
 
 @Resolver()
 export class TodoResolver {
@@ -11,14 +12,13 @@ export class TodoResolver {
     private readonly todoService: TodoService
   ) { }
 
-  @Query(() => [Todo])
+  @Query(() => [Todo], { name: 'todos' })
   findAll(
-    //! Tarea: Args
-    // FIXME:
-    @Args('stuatusArgs') statusArg : StatusArgs
+    @Args() statusArgs: StatusArgs
   ): Todo[] {
-    return this.todoService.finOneStatus(statusArg.status);
+    return this.todoService.findAll(statusArgs);
   }
+
 
   @Query(() => Todo, { name: "Find" })
   findOne(
@@ -48,5 +48,32 @@ export class TodoResolver {
     @Args('id', { type: () => Int }) id: number
   ) {
     return this.todoService.delete(id)
+  }
+
+
+  @Query( () => Int, { name: 'totalTodo'} )
+  totalTodo () {
+    return this.todoService.totalTodo;
+  }
+
+
+  @Query( () => Int, { name: 'complete'} )
+  completeTODO () {
+    return this.todoService.completeTODO;
+
+  }
+
+  @Query( () => Int, { name: 'Pending'} )
+  pedingTODO () {
+    return this.todoService.pedingTODO;
+  }
+
+  @Query( () => AggregationsType )
+  aggregations (): AggregationsType  {
+    return {
+      complete: this.todoService.completeTODO,
+      pending: this.todoService.pedingTODO,
+      total: this.todoService.totalTodo
+    }
   }
 }

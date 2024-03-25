@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Todo } from './entity/todo.entity';
 import { CreateTodoInput, UpdateTodoInput } from './dto/inputs/index';
+import { StatusArgs } from './dto/args/status.args';
 
 @Injectable()
 export class TodoService {
@@ -21,18 +22,26 @@ export class TodoService {
             description: 'Speak',
             done: false
         }
-    ]
+    ];
 
-    findAll(): Todo[] {
-        return this.todos;
+
+    get totalTodo () {
+        return this.todos.length;
     }
 
-    finOneStatus(status: boolean): Todo[] {
-        const todoFilter = this.todos.find( todo => todo.done === status);
+    get completeTODO () {
+        return  this.todos.filter( todo => todo.done === true).length;
+    }
 
-        if (!todoFilter) throw new NotFoundException(`Todo with status ${status} not found`);
+    get pedingTODO() {
+        return this.todos.filter( todo => todo.done === false).length;
+    }
 
-        return todoFilter;
+
+    findAll(  statusArgs: StatusArgs ): Todo[] {
+        const { status } = statusArgs;
+        if( status !== undefined ) return this.todos.filter( todo => todo.done === status );
+        return this.todos;
     }
 
     findOneId(id: number): Todo {

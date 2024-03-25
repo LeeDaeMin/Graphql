@@ -8,13 +8,24 @@ type Todo {
   done: Boolean!
 }
 
+"""Todo quick Aggreagations"""
+type AggregationsType {
+  total: Int!
+  pending: Int!
+  complete: Int!
+}
+
 type Query {
   """Peticion del Paciente"""
   pacientes: String!
   RandomNumero: Float!
   randomFromZeroTo(to: Int): Int!
-  findAll: [Todo!]!
+  todos(status: Boolean): [Todo!]!
   Find(id: Int!): Todo!
+  totalTodo: Int!
+  complete: Int!
+  Pending: Int!
+  aggregations: AggregationsType!
 }
 
 type Mutation {
