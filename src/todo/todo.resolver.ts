@@ -17,7 +17,7 @@ export class TodoResolver {
     // FIXME:
     @Args('stuatusArgs') statusArg : StatusArgs
   ): Todo[] {
-    return this.todoService.finOneStatus(statusArg.status);
+    return this.todoService.finOneStatus(statusArg);
   }
 
   @Query(() => Todo, { name: "Find" })
